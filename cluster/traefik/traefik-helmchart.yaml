@@ -1,0 +1,33 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  chart: https://%{KUBERNETES_API}%/static/charts/traefik-37.1.1+up37.1.0.tgz
+  failurePolicy: reinstall
+  set:
+    global.systemDefaultRegistry: ""
+  valuesContent: |-
+    image:
+      registry: docker.io
+      repository: library/traefik
+      tag: v3.5.1
+    ports:
+      web:
+        port: 5678
+        exposedPort: 5678
+      websecure:
+        port: 4641
+        exposedPort: 4641
+        tls:
+          enabled: true
+    additionalArguments:
+      - "--certificatesresolvers.letsencrypt.acme.email=zxz4641@gmail.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+    persistence:
+      enabled: true
+      name: traefik-data
+      size: 128Mi
+      path: /data

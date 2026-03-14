@@ -1,0 +1,14 @@
+# ============================================
+# 민감 정보 - Git에 절대 올리지 않음
+# ============================================
+
+# App secrets (jasypt password 등)
+**/secret.yaml
+
+# 수동으로 관리하던 TLS Secret (cert-manager로 대체됨, 하위 호환 제외)
+**/tls-secret.yaml
+
+# 로컬 임시 파일
+*.swp
+*.swo
+.DS_Store

@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: yapp-prod-ingressroute-https
+  namespace: prod
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`yapp.suitestudy.com`)
+      kind: Rule
+      services:
+        - name: neki-prod-service
+          port: 8080
+  tls:
+    secretName: neki-tls-cert

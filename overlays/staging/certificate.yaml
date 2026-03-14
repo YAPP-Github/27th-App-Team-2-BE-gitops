@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dev-yapp-tls-cert
+  namespace: staging
+spec:
+  secretName: dev-yapp-tls-cert
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - dev-yapp.suitestudy.com

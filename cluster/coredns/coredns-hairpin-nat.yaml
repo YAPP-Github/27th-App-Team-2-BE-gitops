@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns-custom
+  namespace: kube-system
+data:
+  hairpin-nat.server: |
+    suitestudy.com:53 {
+        hosts {
+            192.168.219.106 yapp.suitestudy.com
+            192.168.219.106 dev-yapp.suitestudy.com
+            192.168.219.106 yapp-monitoring.suitestudy.com
+            fallthrough
+        }
+        forward . /etc/resolv.conf
+    }

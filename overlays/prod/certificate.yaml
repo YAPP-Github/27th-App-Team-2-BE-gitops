@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: neki-tls-cert
+  namespace: prod
+spec:
+  secretName: neki-tls-cert
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - yapp.suitestudy.com
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: yapp-monitoring-tls-cert
+  namespace: prod
+spec:
+  secretName: yapp-monitoring-tls-cert
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - yapp-monitoring.suitestudy.com
