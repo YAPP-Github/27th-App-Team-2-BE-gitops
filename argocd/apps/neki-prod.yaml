@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: neki-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/YAPP-Github/27th-App-Team-2-BE-gitops.git
+    targetRevision: main
+    path: overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod
+  syncPolicy:
+    automated:
+      prune: true      # 매니페스트에서 삭제된 리소스 자동 정리
+      selfHeal: true   # 클러스터 상태가 Git과 다르면 자동 복구
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true  # 삭제는 마지막에 (안전한 순서)
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
