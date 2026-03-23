@@ -38,14 +38,14 @@ spec:
             secretKeyRef:
               name: yapp-secrets
               key: jasypt-password
-        # 리소스 제한 설정 - 실패 테스트용 (과도한 리소스 요청)
+        # 리소스 제한 설정
         resources:
           requests:
-            memory: "64Gi"
-            cpu: "32000m"
+            memory: "512Mi"
+            cpu: "500m"
           limits:
-            memory: "64Gi"
-            cpu: "32000m"
+            memory: "1Gi"
+            cpu: "1000m"
         # Startup Probe - 애플리케이션이 시작되었는지 확인 (느린 시작 대비)
         # startupProbe가 성공하기 전까지 readinessProbe와 livenessProbe는 실행되지 않음
         startupProbe:
